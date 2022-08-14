@@ -1,0 +1,47 @@
+.uploadWrapper {
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+    border-color: transparent;
+    border-style: dashed;
+    border-width: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s;
+
+    &.drag {
+        border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    h1 {
+        font-size: 2.0rem;
+        text-transform: uppercase;
+    }
+
+    .contentWrapper {
+        background: #FFF;
+        width: 100%;
+        max-width: 40rem;
+        height: auto;
+        padding: 2.0rem;
+        margin: 2.0rem auto;
+        border-radius: 0.75rem;
+        box-shadow: rgba(0, 0, 0, 0) 2px 2px 5px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-self: center;
+
+        .photoDraw {
+            background: #F0F;
+            border: solid 2px #333;
+            width: 10%;
+            display: flex;
+            margin: 0 auto;
+
+        }
+    }
+}
+
