@@ -7,17 +7,34 @@ const Content = (props) => {
 
     const [dateEvent, setDateEvent] = useState();
 
-    const mouseDown = (e) => {
-        e.preventDefault();
+    const mouseDown = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
 
         setDateEvent(new Date());
     }
 
-    const mouseUp = (e) => {
-        e.preventDefault();
+    const mouseUp = (event, id) => {
+        event.preventDefault();
+        event.stopPropagation();
 
         const date = new Date();
-        alert(dateEvent - date);
+
+        if ((date - dateEvent) > 500) {
+            console.log('Long press ', id);
+        } else {
+            console.log('Click ', id);
+        }
+    }
+
+    const stopEvent = (event) => {
+        if(event.preventDefault != undefined) {
+            event.preventDefault();
+        }
+         
+        if(event.stopPropagation != undefined) {
+            event.stopPropagation();
+        }
     }
 
     const groups = [...new Set(stickers.map(sticker => sticker.group))];
@@ -37,7 +54,11 @@ const Content = (props) => {
                                     <Sticker
                                         id={ sticker.id }
                                         onMouseDown={ (e) => { mouseDown(e) }}
-                                        onMouseUp={ (e) => { mouseUp() }}
+                                        onMouseUp={ (e) => { mouseUp(e, sticker.id) }}
+                                        onContextMenu={ (e) => {
+                                            stopEvent(e);
+                                            mouseUp(e, sticker.id);
+                                        }}
                                     >
                                         { sticker.name }
                                         <span>({ sticker.qty })</span>
@@ -48,14 +69,6 @@ const Content = (props) => {
                     </GroupStickers>
                 </Group>
             ))}
-
-            {
-                /*
-                    <button { ...longPressEvent }>
-                        Clique me
-                    </button>
-                */
-            }
 
             <br />
             <br />
