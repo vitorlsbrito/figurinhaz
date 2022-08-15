@@ -7,13 +7,7 @@ import Content from '../components/Content';
 
 
 const Home = () => {
-  const [actualScreen, setActualScreen] = useState('Total');
-
-  const changeScreen = (screen) => {
-    setActualScreen(screen);
-  }
-
-  const stickers = [
+  const initStickers = [
     { id: 0, name: 'FIF 1', group: 'FIFA', qty: 0 },
     { id: 1, name: 'FIF 2', group: 'FIFA', qty: 0 },
     { id: 2, name: 'FIF 3', group: 'FIFA', qty: 0 },
@@ -80,15 +74,58 @@ const Home = () => {
     { id: 59, name: 'ECU 20', group: 'Ecuador', qty: 0 },
   ];
 
+  const [actualScreen, setActualScreen] = useState('Total');
+  const [stickers, setStickers] = useState(initStickers);
+
+  const changeScreen = (screen) => {
+    setActualScreen(screen);
+  }
+
+  const addSticker = (id) => {
+    setStickers(stickers.map(sticker => {
+      if (sticker.id === id) {
+        sticker.qty += 1;
+
+        return sticker;
+      } else {
+        return sticker;
+      }
+    }));
+  }
+
+  const removeSticker = (id) => {
+    setStickers(stickers.map(sticker => {
+      if (sticker.id === id) {
+        sticker.qty = 0;
+
+        return sticker;
+      } else {
+        return sticker;
+      }
+    }));
+  }
+
+  const totalStickers = stickers.reduce((acc, sticker) => { return acc += sticker.qty }, 0);
+  const repeatedStickers = stickers.reduce((acc, sticker) => { return sticker.qty > 1 ? acc += (sticker.qty - 1) : acc += 0 }, 0);
+  const missingStickers = stickers.reduce((acc, sticker) => { return sticker.qty == 0 ? acc += 1 : acc += 0 }, 0);
+
   return (
     <>
       <Head>
         <title>Figurinhaz</title>
       </Head>
 
-      <Header />
+      <Header
+        totalStickers={ totalStickers }
+        repeatedStickers={ repeatedStickers }
+        missingStickers={ missingStickers }
+      />
 
-      <Content stickers={ stickers } />
+      <Content
+        stickers={ stickers }
+        addSticker={ addSticker }
+        removeSticker={ removeSticker }
+      />
 
       <Footer
         screen={ actualScreen }

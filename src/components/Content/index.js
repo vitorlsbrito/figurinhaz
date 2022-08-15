@@ -3,7 +3,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 
 const Content = (props) => {
-    const { stickers } = props;
+    const { stickers, addSticker, removeSticker } = props;
 
     const [dateEvent, setDateEvent] = useState();
 
@@ -21,9 +21,9 @@ const Content = (props) => {
         const date = new Date();
 
         if ((date - dateEvent) > 500) {
-            console.log('Long press ', id);
+            removeSticker(id);
         } else {
-            console.log('Click ', id);
+            addSticker(id);
         }
     }
 
@@ -53,6 +53,7 @@ const Content = (props) => {
                                 return (
                                     <Sticker
                                         id={ sticker.id }
+                                        key={ sticker.id }
                                         onMouseDown={ (e) => { mouseDown(e) }}
                                         onMouseUp={ (e) => { mouseUp(e, sticker.id) }}
                                         onContextMenu={ (e) => {

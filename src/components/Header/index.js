@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 
 const Header = (props) => {
+    const { totalStickers, repeatedStickers, missingStickers } = props;
+
     return (
         <Container>
             <h1>Panini™ - Copa do Mundo 2022</h1>
-            <p>Total: 0 | Repetidas: 0 | Faltantes: 0</p>
+            <p>Total: { totalStickers } | Repetidas: { repeatedStickers } | Faltantes: { missingStickers }</p>
 
             <hr />
         </Container>
